@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  maria:
+    container_name: maria-sveak
+    image: mariadb:10.4
+    restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sveak
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+  php-fpm:
+    container_name: php-fpm-sveak
+    build: php-fpm
+    ports:
+      - '9001:9000'
+    volumes:
+      - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+      - ./../:/var/www/sveak/
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  nginx:
+    container_name: nginx-sveak
+    image: nginx
+    ports:
+      - '8091:80'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./../:/var/www/sveak/
+    depends_on:
+      - php-fpm

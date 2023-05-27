@@ -1,0 +1,30 @@
+parameters:
+    user_list_paginator_limit: 25
+    dadata_key: '%env(DADATA_KEY)%'
+    dadata_secret: '%env(DATA_SECRET)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\API\Dadata\DadataClient:
+        arguments:
+            $apiKey: '%dadata_key%'
+            $secret: '%dadata_secret%'
+
+
+    App\Listeners\Entity\UserListener:
+        tags:
+            - name: doctrine.orm.entity_listener
+              event: preFlush
+              entity: App\Entity\User\User
+                # method attribute is optional
+              method: preFlush

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <ul>
+        <li>ID: {{ user.id }}</li>
+        <li>Имя: {{ user.name }}</li>
+        <li>Телефон: {{ user.phone }}</li>
+        <li>Образование: {{ user.education }}</li>
+        <li>Сбор персональных данных: {{ user.agreedToPersonalDataCollect ? 'Да' : 'Нет' }}</li>
+    </ul>
+
+
+    <a href="{{ path('') }}">Ко списку юзеров</a>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список{% endblock %}
+
+{% block body %}
+    {% set totalPages = (totalCount / limit) | round(0, 'ceil') %}
+    Страница {{ page }}/{{ totalPages }}
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Почта</th>
+            <th>Образование</th>
+            <th>ОПД</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.educationString }}</td>
+                <td>{{ user.agreedToPersonalDataCollect ? 'Да' : 'Нет' }}</td>
+                <td><a href="{{ path('user_edit_profile', { 'userId' : user.id } ) }}">Изменить</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if page != 1 %}
+            <a href="{{ path('user_list', { 'page' : page - 1 }) }}">«</a>
+        {% endif %}
+        {% for seq in paginationSequence(page, totalPages) %}
+            <a href="{{ path('user_list', { 'page' : seq }) }}"
+               {% if seq == page %}class="active"{% endif %}>{{ seq }}</a>
+        {% endfor %}
+        {% if page != totalPages %}
+            <a href="{{ path('user_list', { 'page' : page + 1 }) }}">»</a>
+        {% endif %}
+    </div>
+
+{% endblock %}

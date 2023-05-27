@@ -1,0 +1,8 @@
+form:
+  user:
+    name: Имя
+    phone: Телефон
+    email: Email
+    education: Образование
+    personal_data: Я даю согласие на обработку моих личных данных
+    submit: Регистрация
