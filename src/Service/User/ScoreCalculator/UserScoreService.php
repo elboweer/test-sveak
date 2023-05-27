@@ -3,6 +3,7 @@
 namespace App\Service\User\ScoreCalculator;
 
 use App\API\Dadata\DadataClient;
+use App\API\Dadata\DadataClientInterface;
 use App\Entity\User\User;
 
 class UserScoreService implements ScoreCalculateInterface
@@ -19,9 +20,9 @@ class UserScoreService implements ScoreCalculateInterface
         User::EDUCATION_TYPE_HIGHER => 15
     ];
 
-    private DadataClient $dadataClient;
+    private DadataClientInterface $dadataClient;
 
-    public function __construct(DadataClient $dadataClient)
+    public function __construct(DadataClientInterface $dadataClient)
     {
         $this->dadataClient = $dadataClient;
     }

@@ -11,8 +11,6 @@ services:
       MYSQL_DATABASE: sveak
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-    volumes:
-      - ./init:/docker-entrypoint-initdb.d
   php-fpm:
     container_name: php-fpm-sveak
     build: php-fpm
@@ -20,9 +18,7 @@ services:
       - '9001:9000'
     volumes:
       - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
-      - ./../:/var/www/sveak/
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - ./../:/var/www/sveak
   nginx:
     container_name: nginx-sveak
     image: nginx

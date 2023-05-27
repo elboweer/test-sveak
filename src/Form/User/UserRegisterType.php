@@ -25,7 +25,6 @@ class UserRegisterType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'form.user.phone',
                 'attr' => [
-                    'pattern' => "2-[0-9]{3}-[0-9]{3}",
                     'class' => 'tel'
                 ]
             ])
